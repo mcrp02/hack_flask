@@ -64,8 +64,8 @@ def fn_consulta_users():
 ############ Hack 6  ############
 @app.route('/api/v1/user', methods=['POST'])
 def fn_api_user():
-    email = request.args["email"]
-    name = request.args["name"]
+    email = request.args.get("email")
+    name = request.args.get("name")
 
 
     return jsonify({
@@ -97,27 +97,14 @@ def fn_api_add():
 @app.route("/api/v1/user/create", methods=["POST"])
 def fn_api_create():
 
-    if(request.method == "POST"):
-
-        data = {
-            'email': 'foo@foo.foo',
-            'name': 'fooziman',
-            'id': '123'
-        }
-
-
-    # request_data = request.get_json()
-
-    # email = request_data['email']
-    # name = request_data['name']
-    # id = request_data['id']
-
-
-
+    data = request.get_json()
     return jsonify({
-        "payload": data
+        "payload":  {
+            'email':data['email'],
+            'name':data['name'],
+            'id':data['id'],
+        }
      })
-
 
 
 
